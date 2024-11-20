@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbenhami <nbenhami@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: nbenhami <nbenhami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 21:15:24 by nbenhami          #+#    #+#             */
-/*   Updated: 2024/11/20 07:45:29 by nbenhami         ###   ########.fr       */
+/*   Updated: 2024/11/20 19:56:19 by nbenhami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 char		*ft_get_gnl_buffer(t_gnl_list **lst, int fd)
 {
 	char		*buffer;
+	char		*res;
 	t_gnl_list	*actualLst;
 	int			read_bytes;
 
@@ -142,11 +143,20 @@ char		*ft_get_gnl_buffer(t_gnl_list **lst, int fd)
 	if (!buffer)
 		return (NULL);
 	read_bytes = read(fd, buffer, BUFFER_SIZE);
+	if(read_bytes < 0)
+		return (NULL);
 	while(read_bytes > 0)
 	{
 		buffer[read_bytes] = 0;
+		actualLst->buffer = ft_strjoin(actualLst->buffer, buffer);
+		
 		read_bytes = read(fd, buffer, BUFFER_SIZE);
+		buffer = "12345";
 	}
 	free(buffer);
+	if(read_bytes == 0)
+	{
+		return (actualLst->buffer);
+	}
 	return (NULL);
 }
