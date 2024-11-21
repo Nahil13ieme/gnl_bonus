@@ -6,7 +6,7 @@
 /*   By: nbenhami <nbenhami@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:47:41 by nbenhami          #+#    #+#             */
-/*   Updated: 2024/11/21 06:50:56 by nbenhami         ###   ########.fr       */
+/*   Updated: 2024/11/21 22:35:53 by nbenhami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_free(char *buffer, char *s2)
 	char *tmp;
 	
 	tmp = ft_strjoin(buffer, s2);
+	if (!tmp)
+		return (NULL);
 	free(buffer);
 	return (tmp);
 }
@@ -40,10 +42,8 @@ char	*get_buffer(char *buffer, int fd)
 			return (NULL);
 		}
 		if(bytes_read == 0)
-		{
-			free(read_buffer);
-			return (buffer);
-		}
+			break ;
+		read_buffer[bytes_read] = '\0';
 		buffer = ft_free(buffer, read_buffer);
 		if (ft_strchr(buffer, '\n'))
 			break ;
@@ -69,13 +69,14 @@ char	*ft_remove_line(char *buffer)
 		free(buffer);
 		return (NULL);
 	}
-	res = ft_calloc(sizeof(char), (end - start + 1));
+	res = ft_calloc(sizeof(char), (end - start));
 	if (!res)
 	{
 		free(buffer);
 		return (NULL);
 	}
-	while (i < (end - start) + 1)
+	start++;
+	while (buffer[start + i])
 	{
 		res[i] = buffer[start + i];
 		i++;
@@ -114,10 +115,32 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer[fd] = get_buffer(buffer[fd], fd);
-	if (buffer[fd] == NULL)
+	if (buffer[fd] == NULL || buffer[fd][0] == 0)
 		return (NULL);
 	line = ft_get_line(buffer[fd]);
 	buffer[fd] = ft_remove_line(buffer[fd]);
 	return (line);
 }
 
+// #include <fcntl.h>
+// #include <stdio.h>
+
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*line;
+
+// 	fd = open("variable_nls.txt", O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		perror("Error opening file");
+// 		return (1);
+// 	}
+// 	while ((line = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 	}
+// 	close(fd);
+// 	return (0);
+// }
