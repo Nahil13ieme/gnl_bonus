@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbenhami <nbenhami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nbenhami <nbenhami@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 21:15:24 by nbenhami          #+#    #+#             */
-/*   Updated: 2024/11/21 01:54:03 by nbenhami         ###   ########.fr       */
+/*   Updated: 2024/11/21 06:46:40 by nbenhami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-char	*ft_strchr(const *str, int c)
+char	*ft_strchr(char *str, int c)
 {
 	while (*str != (char)c)
 	{
@@ -87,6 +87,5 @@ char	*ft_strjoin(char *s1, char *s2)
 		while (s2[i])
 			array[j++] = s2[i++];
 	array[size] = '\0';
-	free(s1);
 	return (array);
 }
