@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbenhami <nbenhami@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: nbenhami <nbenhami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 21:03:28 by nbenhami          #+#    #+#             */
-/*   Updated: 2024/11/20 07:44:04 by nbenhami         ###   ########.fr       */
+/*   Updated: 2024/11/21 01:53:26 by nbenhami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,12 @@
 # include <unistd.h>
 # include <stdio.h>
 
-typedef struct gnl_list
-{
-	char			*buffer;
-	int				fd;
-	struct gnl_list	*next;
-}					t_gnl_list;
+char	*get_next_line(int fd);
+int		ft_strlen(char *s);
+char	*ft_strchr(char *str, int c);
+void	ft_bzero(void *s, size_t n);
+void	*ft_calloc(size_t nmemb, size_t size);
+char	*ft_strjoin(char *s1, char *s2);
 
-t_gnl_list	*ft_lstnew(int fd);
-int			ft_check_fd(t_gnl_list *list, int fd);
-char		*get_next_line(int fd);
-void		ft_lstadd_front(t_gnl_list **lst, t_gnl_list *new);
-char		*ft_get_gnl_buffer(t_gnl_list **lst, int fd);
 
 #endif
